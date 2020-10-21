@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GameUp - Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rokkitt&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <!-- Barra de navegação -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><img src="./img/logo.png" alt="logo gameup"></a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+            </ul>
+        </div>
+        <a class="btn btn-primary mr-2" href="./login.html">Login / SignIn</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav> <!-- Barra de navegação -->
+
+    <section class="forms">
+        <div class="image">
+            <div class="filter">
+                <div class="container">
+                    <div class="row pt-5">
+                        <div class="col-md-6 mb-5">
+                            <h2 class="text-center">
+                                Login
+                            </h2>
+                            <h6 class="text-center">
+                                Bem vindo de volta!
+                            </h6>
+                            <div class="row">
+                                <form onsubmit="return login()" class="w-100" method="post" id="formLogin">
+                                    <div class="form-group">
+                                        <label for="">Nome</label>
+                                        <input type="text" class="form-control" placeholder="Nome aqui" name="nome">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Senha</label>
+                                        <input type="password" class="form-control" placeholder="Senha aqui"
+                                            name="senha">
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-primary">Logar</button>
+                                    </div>
+                                    <h5 class="text-center mt-3" id="loginErrorMessage">
+                                        Algo de errado aconteceu, cheque nome e senha
+                                    </h5>
+                                </form>
+                                <div class="row text-center">
+                                    <a href="./esqueciSenha.html">Esqueci minha senha</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <h2 class="text-center">
+                                Sign Up
+                            </h2>
+                            <h6 class="text-center">
+                                Gente nova!
+                            </h6>
+                            <div class="row">
+                                <form class="w-100" method="post" id="formCadastro">
+                                    <div class="form-group">
+                                        <label for="">Nome</label>
+                                        <input type="text" class="form-control" placeholder="Nome aqui" name="nome">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Senha</label>
+                                        <input type="password" class="form-control" placeholder="Senha aqui"
+                                            name="senha">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Confirmação de Senha</label>
+                                        <input type="password" class="form-control"
+                                            placeholder="Confirmação de senha aqui" name="confsenha">
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="createAccount()">Criar</button>
+                                    </div>
+                                    <p class="text-center mt-3 " id="senhasdiferentes">
+                                        Suas senhas não coincidem
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#loginErrorMessage').hide()
+            $('#senhasdiferentes').hide()
+        })
+
+        function login() {
+            let values = $("#formLogin").serializeArray()
+            $.ajax({
+                'method': 'POST',
+                'url': './api/login.php',
+                'data': {
+                    'nome': values[0].value,
+                    'senha': values[1].value
+                },
+                'success': function (res) {
+                    if (res != 2) {
+                        sessionStorage.setItem('userId', res)
+                        window.location.replace("http://localhost/gameUp/home.html");
+                    } else if (res == 2) {
+                        $('#loginErrorMessage').show()
+                    }
+                },
+                'error': function (res) {
+                    console.log(res)
+                }
+            })
+        }
+
+        function createAccount() {
+            let values = $("#formCadastro").serializeArray() //puxar valor do form
+            $.ajax({
+                'method': 'POST',
+                'url': './api/cadastro.php',
+                'data': {
+                    'nome': values[0].value,
+                    'senha': values[1].value,
+                    'confsenha': values[2].value
+                },
+
+                'success': function (res) { //caso de certo, faca a funcao... o res eh o valor recebido do eco
+
+                    if (res == 1) {
+                        alert("Usuario Cadastrado")
+
+                    } else if (res == 2) {
+                        $('#senhasdiferentes').show()
+                    }
+                },
+                'error': function (res) {
+                    console.log(res)
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

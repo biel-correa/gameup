@@ -1,0 +1,23 @@
+/* #23aaf2 */
+
+.nome h1,p{
+    float: left;
+}
+.nome p{
+    margin-top:35px;
+    margin-left:20px;
+}
+.informacoes-jogo{
+    border-left:solid #23aaf2 1px;
+}
+
+.imagem-jogo img{
+    border-left:solid #23aaf2 3px;
+}
+.imagem-jogo{
+    margin-bottom: 20px;
+}
+.descricao-jogo p {
+    border-left:solid #23aaf2 1px;
+    padding-left:3px;
+}

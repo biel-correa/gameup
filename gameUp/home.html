@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Base -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Marble - Home</title>
+
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rokkitt&display=swap" rel="stylesheet">
+
+    <!-- Css -->
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleHome.css">
+
+</head>
+
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+
+        <!-- Barra de navegação -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"><img src="./img/logo.png" alt="logo gameup"></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                </ul>
+            </div>
+            <a class="btn btn-primary mr-2" id="loginSignInButton" href="./login.html">Login / SignIn</a>
+            <span class="d-flex" id="helloUser">
+                <p id="userHello">Bem vindo</p>
+                <p class="ml-1" id="userName">nome</p>
+            </span>
+            <a class="btn btn-danger ml-3" id="logout" onclick="logout()">Sair</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav> <!-- Barra de navegação -->
+
+        <!-- Seção jogos populares -->
+        <section class="popularGames">
+
+            <!-- Película da seção jogos populares -->
+            <div class="popularGamesOverlay">
+
+                <div class="container" style="height: 600px;">
+
+                </div>
+
+            </div> <!-- Película da seção jogos populares -->
+
+        </section> <!-- Seção jogos populares -->
+
+    </header> <!-- Cabeçalho -->
+
+    <!-- Principal -->
+    <main style="margin: 50px 0;">
+
+        <!-- Container do principal -->
+        <div class="container">
+
+            <!-- Linha titular -->
+            <div class="row">
+
+                <!-- Coluna única -->
+                <div class="col-sm-12 text-center">
+
+                    <h2>Jogadores com níveis próximos</h2>
+
+                </div> <!-- Coluna única -->
+
+            </div> <!-- Linha titular -->
+
+            <!-- Linha única do principal -->
+            <div class="row">
+
+                <!-- Coluna 1 -->
+                <div class="col-sm-4" style="border-right: 1px solid rgb(211, 211, 211);">
+
+                    <h4>Nínguem próximo ao seu nível</h4>
+
+                </div> <!-- Coluna 1 -->
+
+                <!-- Coluna 2 -->
+                <div class="col-sm-4" style="border-right: 1px solid rgb(211, 211, 211);">
+
+                    <h4>Nínguem próximo ao seu nível</h4>
+
+                </div> <!-- Coluna 2 -->
+
+                <!-- Coluna 3 -->
+                <div class="col-sm-4">
+
+                    <h4>Nínguem próximo ao seu nível</h4>
+
+                </div> <!-- Coluna 3 -->
+
+            </div> <!-- Linha única do principal -->
+
+        </div> <!-- Container do principal -->
+
+    </main> <!-- Principal -->
+
+    <!-- Rodapé -->
+    <footer>
+
+        <!-- Container do rodapé -->
+        <div class="container">
+
+            <!-- Linha única do rodapé -->
+            <div class="row">
+
+                <!-- Coluna única do rodapé -->
+                <div class="col-sm-12">
+
+                    &copy; Marble 2019
+
+                </div> <!-- Coluna única do rodapé -->
+
+            </div> <!-- Linha única do rodapé -->
+
+        </div> <!-- Container do rodapé -->
+
+    </footer> <!-- Rodapé -->
+
+    <!-- Script bootstrap -->
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        var userData;
+        $(document).ready(function () {
+            if (window.sessionStorage.getItem('userId')) {
+                var userId = window.sessionStorage.getItem('userId')
+                $('#loginSignInButton').hide()
+                getUserInfo(userId)
+            } else {
+                $('#userHello').hide()
+                $('#userName').hide()
+                $('#logout').hide()
+            }
+        })
+
+        function getUserInfo(userId) {
+            $.ajax({
+                'method': 'POST',
+                'url': './api/getUserInfo.php',
+                'data': {
+                    'id': userId
+                },
+
+                'success': function (res) {
+                    userData = JSON.parse(res)
+                    console.log(userData)
+                    window.sessionStorage.setItem('userName', userData.userName)
+                    $('#userName').text(userData.userName)
+                },
+                'error': function (res) {
+                    console.log(res)
+                }
+            })
+        }
+        function logout(params) {
+            window.sessionStorage.removeItem('userName')
+            window.sessionStorage.removeItem('userId')
+            location.reload()
+        }
+    </script>
+</body>
+
+</html>

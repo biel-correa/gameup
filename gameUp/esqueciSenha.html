@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Esqueci minha Senha</title>
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rokkitt&display=swap" rel="stylesheet">
+    <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .forgot input {
+            text-align: center;
+            width: 35vw;
+            height: 3vw;
+            border-radius: 5px;
+            font-size: 15px;
+
+        }
+
+        .containerSenha {
+            border-radius: 45px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Barra de navegação -->
+    <!-- Barra de navegação -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><img src="./img/logo.png" alt="logo gameup"></a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+            </ul>
+        </div>
+        <a class="btn btn-primary mr-2" href="./login.html">Login / SignIn</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav> <!-- Barra de navegação -->
+
+    <section class="forgot">
+        <div class="container containerSenha">
+            <div class="row">
+                <div class="col-md-12">
+                    <center>
+                        <h1 style="margin-bottom: 25px;">Trocar a senha</h1>
+                        <span>Uma nova senha será enviada para o e-mail digitado</span>
+                        <form id="info">
+                            <input class='form-control' name="username" id="username" type="text" placeholder="Digite seu nome de "
+                                style="margin-bottom: 25px;">
+                            <button type="button" onclick="changePass()" class="btn btn-primary">
+                                Confirmar
+                            </button>
+                        </form>
+                    </center>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        function changePass(){
+            let values = $('#info').serializeArray()
+            $.ajax({
+                'method': 'POST',
+                // 'url': './api/changePass.php',
+                'data': {
+                    'email': values[0]
+                },
+                'success': function (res) {
+                    alert('funcionalidade ainda nao disponivel')
+                },
+                'error': function (res) {
+                    console.log(res)
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

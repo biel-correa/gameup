@@ -1,0 +1,113 @@
+/* Geral */
+body {
+    font-size: 20px;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+p {
+    font-size: 1em;
+    font-family: 'Rokkitt', serif;
+    text-align: justify;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1.3em;
+}
+
+.nav>li>div {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    padding-right: 0;
+    display: inline-block;
+    width: 50%;
+}
+
+.nav .form-control {
+    border: 1px solid rgb(36, 172, 242);
+
+}
+
+.nav .form-control::placeholder {
+    color: rgb(36, 172, 242);
+}
+
+.nav>li>.divBtn {
+    width: 0;
+}
+
+.nav>li>.divBtn>.btn {
+    font-size: 0.7em;
+    padding: 6px 12px;
+}
+
+.nav>li>.divBtn>.btn-default {
+    color: rgb(36, 172, 242);
+    background-color: #fff;
+    border-color: rgb(36, 172, 242);
+    transition: all 300ms;
+}
+
+.nav>li>.divBtn>.btn-default:hover {
+    color: #fff;
+    background-color: rgb(36, 172, 242);
+    border-color: rgb(36, 172, 242);
+    transition: all 300ms;
+}
+
+.navbar {
+    margin: 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-default {
+    background-color: #fff;
+    border: 0;
+    border-bottom: 1px solid rgb(36, 172, 242);
+    padding: 15px 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: rgb(36, 172, 242);
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    color: rgb(0, 135, 202);
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: rgb(0, 135, 202);
+}
+
+.navbar-default .navbar-toggle {
+    border-color: rgb(36, 172, 242);
+}
+
+.navbar-default .navbar-toggle:hover {
+    background-color: rgb(227, 245, 255);
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
+.navbar-brand>img {
+    width: 100px;
+}
+
+.container>.navbar-collapse {
+    margin: 15px 0;
+}
