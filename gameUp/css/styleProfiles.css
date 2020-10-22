@@ -1,0 +1,67 @@
+.fab {
+    padding: 40px;
+    font-size: 50px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+}
+  
+  .fa:hover {
+      opacity: 0.7;
+  }
+  
+  input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url();
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+  }
+  
+  input[type=text]:focus {
+    width: 100%;
+  }
+
+  /* Geral */
+* {
+    box-sizing: border-box;
+}
+
+#bemvindo{
+    padding-bottom: 50px;
+    padding-right: 60px;
+}
+
+/* Cabeçalho */
+.telinha {
+    background-image: url(../img/imageprofile.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.telinhaOverlay {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+main h2 {
+    color: rgb(0, 135, 202);
+}
+
+/* Rodapé */
+footer {
+    padding: 25px 0;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+    text-align: right;
+    margin-top: 150px;
+    color: rgb(0, 135, 202);
+}
