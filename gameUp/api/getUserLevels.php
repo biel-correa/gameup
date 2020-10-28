@@ -1,7 +1,7 @@
 <?php
 $userId = $_POST['userId'];
 
-$sql = "SELECT levels.level_name, levels.level_variation, games.game_name FROM levels INNER JOIN games ON levels.level_id = games.game_id WHERE user_id = $userId;";
+$sql = "SELECT levels.level_name, levels.level_variation, games.game_name FROM levels INNER JOIN games ON levels.game_id = games.game_id WHERE levels.user_id = $userId;";
 $conn = mysqli_connect('localhost', 'root', '', 'game_up');
 $res = mysqli_query($conn, $sql);
 

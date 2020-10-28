@@ -29,18 +29,23 @@
     <!-- Barra de navegação -->
     <!-- Barra de navegação -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img src="./img/logo.png" alt="logo gameup"></a>
+        <a class="navbar-brand" href="home.html"><img src="./img/logo.png" alt="logo gameup"></a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="home.html">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="profile.html" id="profileTab">Profile</a>
                 </li>
             </ul>
         </div>
-        <a class="btn btn-primary mr-2" href="./login.html">Login / SignIn</a>
+        <a class="btn btn-primary mr-2" id="loginSignInButton" href="./login.html">Login / SignIn</a>
+        <span class="d-flex" id="helloUser">
+            <p id="userHello">Bem vindo</p>
+            <p class="ml-1" id="userName">nome</p>
+        </span>
+        <a class="btn btn-danger ml-3" id="logout" onclick="logout()">Sair</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -71,6 +76,15 @@
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>
+        $(document).ready(function(){
+            if (!window.sessionStorage.getItem('userId')) {
+                $('#profileTab').hide()
+                $('#logout').hide()
+                $('#userHello').hide()
+                $('#userName').hide()
+            }
+        })
+
         function changePass(){
             let values = $('#info').serializeArray()
             $.ajax({

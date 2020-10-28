@@ -198,7 +198,9 @@
                 'data': {'userId': window.sessionStorage.getItem('userId')},
                 'url': './api/getUserLevels.php',
                 'success': function (res) {
+                    $('#leveList').empty()
                     let data = JSON.parse(res)
+                    console.log(data)
                     if (res.length == 2) {
                         $('#semCadastro').show()
                     }else{
@@ -233,6 +235,8 @@
                         } else if (res == 0) {
                             $('#nivelErroTotal').show()
                         }
+
+                        getLevels()
                     },
                     'error': function (res) {
                         console.log(res)
