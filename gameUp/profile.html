@@ -11,13 +11,14 @@
     <!-- Fontes -->
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rokkitt&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Css -->
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/styleProfiles.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/styleProfiles.css">
 
 </head>
 
@@ -38,9 +39,6 @@
                         <a class="nav-link" href="profile.html">Profile</a>
                     </li>
                 </ul>
-                <form>
-                    <input type="text" name="search" placeholder="Search..">
-                  </form>
             </div>
             <a class="btn btn-primary mr-2" id="loginSignInButton" href="./login.html">Login / SignIn</a>
             <span class="d-flex" id="helloUser">
@@ -53,8 +51,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         </nav> <!-- Barra de navegação -->
+    </header> <!-- Cabeçalho -->
 
-        <!-- Principal -->
+    <!-- Principal -->
     <main style="margin: 50px 0;">
 
         <!-- Container do principal -->
@@ -79,25 +78,28 @@
                 <div class="col-sm-5" style="border-right: 1px solid rgb(211, 211, 211);">
 
                     <img src="img/pic.png" alt="">
-                    <H2>id=userName</H2>
+                    <H2><span id="userIdTag"></span></H2>
 
                 </div> <!-- Coluna 1 -->
 
                 <!-- Coluna 2 -->
                 <div class="col-sm-7">
-                    
-                   <div>
 
-                    <p>Conecte suas contas</p>
-                    <a href="https://store.steampowered.com/?l=portuguese" class="fab fa-steam"    style="color:#171a21;" ></a>
-                    <a href="https://store.playstation.com/pt-br/home/games" class="fab fa-playstation" style="color: #2E6DB4;" ></a>
-                    <a href="https://www.xbox.com/pt-BR/microsoft-store" class="fab fa-xbox" style="color:  #107C11;"></a>
-                    <a href="https://www.twitch.tv/" class="fab fa-twitch" style="color: #6441A4;"></a>
-                    <a href="https://www.youtube.com/?hl=pt&gl=BR" class="fab fa-youtube" style="color: red;"></a>
+                    <div>
+
+                        <p>Conecte suas contas</p>
+                        <a href="https://store.steampowered.com/?l=portuguese" class="fab fa-steam"
+                            style="color:#171a21;"></a>
+                        <a href="https://store.playstation.com/pt-br/home/games" class="fab fa-playstation"
+                            style="color: #2E6DB4;"></a>
+                        <a href="https://www.xbox.com/pt-BR/microsoft-store" class="fab fa-xbox"
+                            style="color:  #107C11;"></a>
+                        <a href="https://www.twitch.tv/" class="fab fa-twitch" style="color: #6441A4;"></a>
+                        <a href="https://www.youtube.com/?hl=pt&gl=BR" class="fab fa-youtube" style="color: red;"></a>
 
 
-                   </div>
-                        
+                    </div>
+
                 </div> <!-- Coluna 2 -->
 
             </div> <!-- Linha única do principal -->
@@ -106,23 +108,37 @@
 
     </main> <!-- Principal -->
 
-        <!-- fundo -->
-        <section class="telinha">
+    <!--modal nivel-->
+    <div class="levels container">
+        <div class="row mb-2">
+            <button type="button" class="btn btn-success" id="addLevelButton">Adicionar nivel</button>
+        </div>
 
-            <!-- Película da seção jogos populares -->
-            <div class="telinhaOverlay">
+        <div class="card mb-5" id="addLevel">
+            <div class="card-body">
+                <h4 class="text-success" id="nivelAdicionado">Nivel adicionado com sucesso</h4>
+                <h4 class="text-danger" id="nivelErroCampos">Cheque todos os campos</h4>
+                <h4 class="text-danger" id="nivelErroTotal">Algo de errado aconteceu tente novamente</h4>
+                <form onsubmit="saveLevel();return false" id="formAddLevel">
+                    <div class="d-flex">
+                        <input type="number" name="userId" id="userId" class="d-none">
+                        <select class="form-control w-25 mr-3" id="listGames" name="jogo">
+                            <option>Selecione o jogo</option>
+                        </select>
+                        <input class="form-control w-25 mr-3" placeholder="Digite seu nivel" name="level">
+                        <input type="number" class="form-control w-25 mr-3" placeholder="Digite a variação do nivel"
+                            name="levelVariation">
 
-                <div class="container" style="height: 600px;">
-
-                </div>
-
-            </div> <!-- Película da seção jogos populares -->
-
-        </section> <!-- Seção jogos populares -->
-
-    </header> <!-- Cabeçalho -->
-
-    
+                        <button type="submit" class="btn btn-primary form-control w-25">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <h3 id="semCadastro">Nenhum nivel cadastrado</h3>
+        <ul id="levelList">
+        </ul>
+    </div>
 
     <!-- Rodapé -->
     <footer>
@@ -151,7 +167,13 @@
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>
         var userData;
+        var gameList;
         $(document).ready(function () {
+            $('#nivelAdicionado').hide()
+            $('#nivelErroCampos').hide()
+            $('#nivelErroTotal').hide()
+            $('#addLevel').hide()
+            $('#semCadastro').hide()
             if (window.sessionStorage.getItem('userId')) {
                 var userId = window.sessionStorage.getItem('userId')
                 $('#loginSignInButton').hide()
@@ -161,7 +183,83 @@
                 $('#userName').hide()
                 $('#logout').hide()
             }
+
+            $('#addLevelButton').click(function () {
+                $('#addLevel').show()
+            })
+            $('#userId').val(window.sessionStorage.getItem('userId'))
+            getGames()
+            getLevels()
         })
+
+        function getLevels() {
+            $.ajax({
+                'method': 'POST',
+                'data': {'userId': window.sessionStorage.getItem('userId')},
+                'url': './api/getUserLevels.php',
+                'success': function (res) {
+                    let data = JSON.parse(res)
+                    if (res.length == 2) {
+                        $('#semCadastro').show()
+                    }else{
+                        for (let i = 0; i < data.length; i++) {
+                            let html = '<div class="card mb-3"><div class="card-body"><h5 class="card-title">'+ data[i][1] +'</h5><p class="card-text">Nivel: '+ data[i][2] +'</p><p class="card-text">Variação: '+ data[i][0] +'</p></div></div>'
+                            $('#levelList').append(html)
+                        }
+
+                    }
+                },
+                'error': function (res) {
+                    console.log(res)
+                    $('#nivelErroTotal').show()
+                }
+            })
+        }
+
+        function saveLevel() {
+            const values = $('#formAddLevel').serializeArray()
+            console.log(values)
+            if (values[0].value == '' || values[1].value == '' || values[2].value == '' || values[3].value == '') {
+                $('#nivelErroCampos').show()
+            } else {
+                $.ajax({
+                    'method': 'POST',
+                    'data': values,
+                    'url': './api/saveLevel.php',
+                    'success': function (res) {
+                        console.log(res)
+                        if (res == 1) {
+                            $('#nivelAdicionado').show()
+                        } else if (res == 0) {
+                            $('#nivelErroTotal').show()
+                        }
+                    },
+                    'error': function (res) {
+                        console.log(res)
+                        $('#nivelErroTotal').show()
+                    }
+                })
+
+            }
+
+        }
+
+        function getGames() {
+            $.ajax({
+                'method': 'POST',
+                'url': './api/getGameName.php',
+                'success': function (res) {
+                    gameList = JSON.parse(res)
+                    for (let i = 0; i < gameList.length; i++) {
+                        $('#listGames').append('<option value="' + gameList[i][0] + '">' + gameList[i][1] +
+                            '</option>')
+                    }
+                },
+                'error': function (res) {
+                    console.log(res)
+                }
+            })
+        }
 
         function getUserInfo(userId) {
             $.ajax({
@@ -176,16 +274,22 @@
                     console.log(userData)
                     window.sessionStorage.setItem('userName', userData.userName)
                     $('#userName').text(userData.userName)
+                    $('#userIdTag').append(userData.userName)
                 },
                 'error': function (res) {
                     console.log(res)
                 }
             })
         }
+
         function logout(params) {
             window.sessionStorage.removeItem('userName')
             window.sessionStorage.removeItem('userId')
             location.reload()
+        }
+
+        function addLevel() {
+            console.log('112123123')
         }
     </script>
 </body>

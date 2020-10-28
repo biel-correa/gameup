@@ -47,7 +47,7 @@
                                 Bem vindo de volta!
                             </h6>
                             <div class="row">
-                                <form onsubmit="return login()" class="w-100" method="post" id="formLogin">
+                                <form onsubmit="login(); return false" class="w-100" method="post" id="formLogin">
                                     <div class="form-group">
                                         <label for="">Nome</label>
                                         <input type="text" class="form-control" placeholder="Nome aqui" name="nome">
@@ -77,7 +77,7 @@
                                 Gente nova!
                             </h6>
                             <div class="row">
-                                <form class="w-100" method="post" id="formCadastro">
+                                <form class="w-100" onsubmit="createAccount(); return false" method="post" id="formCadastro">
                                     <div class="form-group">
                                         <label for="">Nome</label>
                                         <input type="text" class="form-control" placeholder="Nome aqui" name="nome">
@@ -93,8 +93,7 @@
                                             placeholder="Confirmação de senha aqui" name="confsenha">
                                     </div>
                                     <div class="row d-flex justify-content-center">
-                                        <button type="button" class="btn btn-primary"
-                                            onclick="createAccount()">Criar</button>
+                                        <button type="submit" class="btn btn-primary">Criar</button>
                                     </div>
                                     <p class="text-center mt-3 " id="senhasdiferentes">
                                         Suas senhas não coincidem
@@ -127,7 +126,7 @@
                 'success': function (res) {
                     if (res != 2) {
                         sessionStorage.setItem('userId', res)
-                        window.location.replace("http://localhost/gameUp/home.html");
+                        window.location.replace("http://localhost/gameup/gameUp/home.html");
                     } else if (res == 2) {
                         $('#loginErrorMessage').show()
                     }

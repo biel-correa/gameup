@@ -42,15 +42,9 @@
 }
 
 /* Cabeçalho */
-.telinha {
-    background-image: url(../img/imageprofile.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
-.telinhaOverlay {
-    background-color: rgba(0, 0, 0, 0.5);
+.levels ul{
+    padding: 0;
+    margin: 0;
 }
 
 main h2 {

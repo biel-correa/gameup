@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22-Out-2020 às 02:55
+-- Tempo de geração: 28-Out-2020 às 21:43
 -- Versão do servidor: 10.4.14-MariaDB
 -- versão do PHP: 7.2.33
 
@@ -34,6 +34,14 @@ CREATE TABLE `games` (
   `game_creation_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `games`
+--
+
+INSERT INTO `games` (`game_id`, `game_description`, `game_name`, `game_creation_date`) VALUES
+(1, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit, ex. Pariatur eaque sint similique saepe architecto eum. Harum, rem exercitationem!', 'CSGO', '2020-10-28'),
+(2, 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit, ex. Pariatur eaque sint similique saepe architecto eum. Harum, rem exercitationem!', 'LOL', '2020-10-28');
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +55,15 @@ CREATE TABLE `levels` (
   `level_name` varchar(30) DEFAULT NULL,
   `level_variation` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `levels`
+--
+
+INSERT INTO `levels` (`level_id`, `user_id`, `game_id`, `level_name`, `level_variation`) VALUES
+(1, 5, 1, 'a', '1'),
+(2, 5, 1, 'a', '2'),
+(3, 5, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -67,7 +84,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_password`, `user_creation_date`) VALUES
 (3, 'teste', '202cb962ac59075b964b07152d234b70', '2020-10-21'),
-(4, 'joao', '202cb962ac59075b964b07152d234b70', '2020-10-22');
+(4, 'joao', '202cb962ac59075b964b07152d234b70', '2020-10-22'),
+(5, 'carlos', '4297f44b13955235245b2497399d7a93', '2020-10-26');
 
 --
 -- Índices para tabelas despejadas
@@ -99,19 +117,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `games`
 --
 ALTER TABLE `games`
-  MODIFY `game_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `game_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `levels`
 --
 ALTER TABLE `levels`
-  MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
