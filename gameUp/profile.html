@@ -65,7 +65,7 @@
                 <!-- Coluna única -->
                 <div class="col-sm-12 text-center" id="bemvindo">
 
-                    <h2>Bem Vindo ao seu Perfil</h2>
+                    <h2>Bem vindo ao seu perfil</h2>
 
                 </div> <!-- Coluna única -->
 
@@ -111,12 +111,12 @@
     <!--modal nivel-->
     <div class="levels container">
         <div class="row mb-2">
-            <button type="button" class="btn btn-success" id="addLevelButton">Adicionar nivel</button>
+            <button type="button" class="btn btn-success" id="addLevelButton">Adicionar nível</button>
         </div>
 
         <div class="card mb-5" id="addLevel">
             <div class="card-body">
-                <h4 class="text-success" id="nivelAdicionado">Nivel adicionado com sucesso</h4>
+                <h4 class="text-success" id="nivelAdicionado">Nível adicionado com sucesso</h4>
                 <h4 class="text-danger" id="nivelErroCampos">Cheque todos os campos</h4>
                 <h4 class="text-danger" id="nivelErroTotal">Algo de errado aconteceu tente novamente</h4>
                 <form onsubmit="saveLevel();return false" id="formAddLevel">
@@ -135,7 +135,7 @@
             </div>
         </div>
         <hr>
-        <h3 id="semCadastro">Nenhum nivel cadastrado</h3>
+        <h3 id="semCadastro">Nenhum nível cadastrado</h3>
         <ul id="levelList">
         </ul>
     </div>
@@ -205,7 +205,7 @@
                         $('#semCadastro').show()
                     }else{
                         for (let i = 0; i < data.length; i++) {
-                            let html = '<div class="card mb-3"><div class="card-body"><h5 class="card-title">'+ data[i][1] +'</h5><p class="card-text">Nivel: '+ data[i][2] +'</p><p class="card-text">Variação: '+ data[i][0] +'</p></div></div>'
+                            let html = '<div class="card mb-3"><div class="card-body"><h5 class="card-title">'+ data[i][1] +'</h5><p class="card-text">Nível: '+ data[i][2] +'</p><p class="card-text">Variação: '+ data[i][0] +'</p></div></div>'
                             $('#levelList').append(html)
                         }
 
