@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/styleProfiles.css">
+    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css">
 
 </head>
 
@@ -42,7 +43,7 @@
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                  </form>
+                </form>
             </div>
             <a class="btn btn-primary mr-2" id="loginSignInButton" href="./login.html">Login / SignIn</a>
             <span class="d-flex" id="helloUser">
@@ -172,6 +173,7 @@
     <script>
         var userData;
         var gameList;
+        var status = 'desativado';
         $(document).ready(function () {
             $('#nivelAdicionado').hide()
             $('#nivelErroCampos').hide()
@@ -189,7 +191,13 @@
             }
 
             $('#addLevelButton').click(function () {
-                $('#addLevel').show()
+                if (status == 'desativado') {
+                    $('#addLevel').show()
+                    status = 'ativado'
+                }else{
+                    $('#addLevel').hide()
+                    status = 'desativado'
+                }
             })
             $('#userId').val(window.sessionStorage.getItem('userId'))
             getGames()
@@ -199,7 +207,9 @@
         function getLevels() {
             $.ajax({
                 'method': 'POST',
-                'data': {'userId': window.sessionStorage.getItem('userId')},
+                'data': {
+                    'userId': window.sessionStorage.getItem('userId')
+                },
                 'url': './api/getUserLevels.php',
                 'success': function (res) {
                     $('#leveList').empty()
@@ -207,9 +217,15 @@
                     console.log(data)
                     if (res.length == 2) {
                         $('#semCadastro').show()
-                    }else{
+                    } else {
                         for (let i = 0; i < data.length; i++) {
-                            let html = '<div class="card mb-3"><div class="card-body"><h5 class="card-title">'+ data[i][1] +'</h5><p class="card-text">Nível: '+ data[i][2] +'</p><p class="card-text">Variação: '+ data[i][0] +'</p></div></div>'
+                            let html =
+                                '<div class="card mb-3"><div class="card-body"><div class="d-flex justify-content-between"><h5 class="card-title">' +
+                                data[i][1] + '</h5><button class="btn btn-danger" id="level' + data[i][3] +
+                                '" onclick="deleteLevel(' + data[i][3] +
+                                ')"><i class="fas fa-trash"></i></button></div><p class="card-text">Nível: ' +
+                                data[i][2] + '</p><p class="card-text">Variação: ' + data[i][0] +
+                                '</p></div></div>'
                             $('#levelList').append(html)
                         }
 
@@ -218,6 +234,32 @@
                 'error': function (res) {
                     console.log(res)
                     $('#nivelErroTotal').show()
+                }
+            })
+        }
+
+        function resetLevels(){
+            $('#levelList').empty()
+            getLevels()
+        }
+
+        function deleteLevel(idLevel) {
+            console.log(idLevel)
+            $.ajax({
+                'method': 'POST',
+                'data': {idlevel: idLevel},
+                'url': './api/deleteLevel.php',
+                'success': function (res) {
+                    console.log(res)
+                    if (res == 1) {
+                        $('#nivelAdicionado').show()
+                    } else if (res == 0) {
+                        $('#nivelErroTotal').show()
+                    }
+                    resetLevels()
+                },
+                'error': function (res) {
+                    console.log(res)
                 }
             })
         }
@@ -240,7 +282,7 @@
                             $('#nivelErroTotal').show()
                         }
 
-                        getLevels()
+                        resetLevels()
                     },
                     'error': function (res) {
                         console.log(res)
