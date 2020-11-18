@@ -115,7 +115,7 @@
 
     <!--modal nivel-->
     <div class="levels container">
-        <div class="row mb-2">
+        <div class="row mb-2 ml-1">
             <button type="button" class="btn btn-success" id="addLevelButton">Adicionar nível</button>
         </div>
 
@@ -174,12 +174,16 @@
         var userData;
         var gameList;
         var status = 'desativado';
+        var selectedToDelete;
+        var idDeleteLevel;
         $(document).ready(function () {
             $('#nivelAdicionado').hide()
             $('#nivelErroCampos').hide()
             $('#nivelErroTotal').hide()
+            $('.cofirm-delete').hide()
             $('#addLevel').hide()
             $('#semCadastro').hide()
+            console.log(selectedToDelete)
             if (window.sessionStorage.getItem('userId')) {
                 var userId = window.sessionStorage.getItem('userId')
                 $('#loginSignInButton').hide()
@@ -194,7 +198,7 @@
                 if (status == 'desativado') {
                     $('#addLevel').show()
                     status = 'ativado'
-                }else{
+                } else {
                     $('#addLevel').hide()
                     status = 'desativado'
                 }
@@ -218,12 +222,14 @@
                     if (res.length == 2) {
                         $('#semCadastro').show()
                     } else {
+                        $('#semCadastro').hide()
                         for (let i = 0; i < data.length; i++) {
                             let html =
                                 '<div class="card mb-3"><div class="card-body"><div class="d-flex justify-content-between"><h5 class="card-title">' +
                                 data[i][1] + '</h5><button class="btn btn-danger" id="level' + data[i][3] +
                                 '" onclick="deleteLevel(' + data[i][3] +
-                                ')"><i class="fas fa-trash"></i></button></div><p class="card-text">Nível: ' +
+                                ')"><i class="fas fa-trash" id="icon' + data[i][3] +
+                                '"></i></button></div><p class="card-text">Nível: ' +
                                 data[i][2] + '</p><p class="card-text">Variação: ' + data[i][0] +
                                 '</p></div></div>'
                             $('#levelList').append(html)
@@ -238,30 +244,70 @@
             })
         }
 
-        function resetLevels(){
+        function resetLevels() {
             $('#levelList').empty()
             getLevels()
         }
 
         function deleteLevel(idLevel) {
+            idDeleteLevel = idLevel
             console.log(idLevel)
-            $.ajax({
-                'method': 'POST',
-                'data': {idlevel: idLevel},
-                'url': './api/deleteLevel.php',
-                'success': function (res) {
-                    console.log(res)
-                    if (res == 1) {
-                        $('#nivelAdicionado').show()
-                    } else if (res == 0) {
-                        $('#nivelErroTotal').show()
-                    }
-                    resetLevels()
-                },
-                'error': function (res) {
-                    console.log(res)
+            console.log(selectedToDelete)
+            if (idLevel == selectedToDelete || selectedToDelete == undefined) {
+
+                $('#level' + idLevel).removeClass('btn-danger')
+                $('#level' + idLevel).addClass('btn-success')
+                $('#icon' + idLevel).removeClass('fa-trash')
+                $('#icon' + idLevel).addClass('fa-check')
+                if (!$('#conf-deletar').length) {
+                    $('#level' + idLevel).prepend('<span id="conf-deletar">Confirme para deletar</span> ')
                 }
-            })
+
+                let time = setTimeout(function(){
+                    $('#level' + idDeleteLevel).addClass('btn-danger')
+                    $('#level' + idDeleteLevel).removeClass('btn-success')
+                    $('#icon' + idDeleteLevel).removeClass('fa-check')
+                    $('#icon' + idDeleteLevel).addClass('fa-trash')
+                    $('#conf-deletar').remove()
+                    selectedToDelete = undefined
+                }, 5000)
+
+                if (idLevel == selectedToDelete) {
+                    clearTimeout(time)
+                    $.ajax({
+                        'method': 'POST',
+                        'data': {
+                            idlevel: idLevel
+                        },
+                        'url': './api/deleteLevel.php',
+                        'success': function (res) {
+                            console.log(res)
+                            if (res == 1) {
+                                $('#nivelAdicionado').show()
+                            } else if (res == 0) {
+                                $('#nivelErroTotal').show()
+                            }
+                            resetLevels()
+                        },
+                        'error': function (res) {
+                            console.log(res)
+                        }
+                    })
+                }
+            } else {
+                $('#level' + selectedToDelete).addClass('btn-danger')
+                $('#icon' + selectedToDelete).addClass('fa-trash')
+                $('#level' + selectedToDelete).removeClass('btn-success')
+                $('#icon' + selectedToDelete).removeClass('fa-check')
+                $('#conf-deletar').remove()
+
+                $('#level' + idLevel).removeClass('btn-danger')
+                $('#level' + idLevel).addClass('btn-success')
+                $('#icon' + idLevel).removeClass('fa-trash')
+                $('#icon' + idLevel).addClass('fa-check')
+                $('#level' + idLevel).prepend('<span id="conf-deletar">Clique para deletar</span> ')
+            }
+            selectedToDelete = idLevel
         }
 
         function saveLevel() {
